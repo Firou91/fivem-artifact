@@ -1,0 +1,2 @@
+**/libnode*.so filter=lfs diff=lfs merge=lfs -text
+**/libnode*.dll filter=lfs diff=lfs merge=lfs -text
