@@ -1,4 +1,4 @@
-name: Publish FiveM Artifact
+name: Publish FiveM Artifact (Latest)
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   publish:
-    name: Publish ${{ matrix.platform }} artifact
+    name: Publish ${{ matrix.platform }} artifact (latest)
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -21,10 +21,10 @@ jobs:
         include:
           - platform: windows
             api_platform: win32
-            branch: stable-windows
+            branch: latest-windows
           - platform: linux
             api_platform: linux
-            branch: stable-linux
+            branch: latest-linux
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -189,10 +189,10 @@ jobs:
             echo "No changes to commit."
             exit 0
           fi
-          git commit -m "chore: publish fivem artifact (${{ matrix.platform }}) ${{ steps.meta.outputs.latest_version }}"
+          git commit -m "chore: publish fivem artifact (latest/${{ matrix.platform }}) ${{ steps.meta.outputs.latest_version }}"
           git push origin "${{ matrix.branch }}"
 
       - name: Skip message
         if: steps.check.outputs.update_needed == 'false'
         run: |
-          echo "Skip publishing: artifact already up-to-date for ${{ matrix.branch }}."
+          echo "Skip publishing: latest artifact already up-to-date for ${{ matrix.branch }}."
