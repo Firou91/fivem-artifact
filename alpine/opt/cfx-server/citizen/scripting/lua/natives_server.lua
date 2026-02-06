@@ -937,13 +937,6 @@ function Global.GetLastPedInVehicleSeat(vehicle, seatIndex)
 	return _in(0xf7c6792d, vehicle, seatIndex, _ri)
 end
 
---- GET_MOUNT
--- @param ped the ped id
--- @return Returns the entity the `ped` is currently on, or `0` if they're not on a mount.
-function Global.GetMount(ped)
-	return _in(0xdd31ec4e, ped, _ri)
-end
-
 --- Gets the specific entity type (as an integer), which can be one of the following defined down below:
 -- #### FiveM:
 -- ```cpp
@@ -1433,13 +1426,6 @@ function Global.GetResourceState(resourceName)
 	return _in(0x4039b485, _ts(resourceName), _s)
 end
 
---- GET_SEAT_PED_IS_USING
--- @param ped the ped id
--- @return Returns the seat index for specified `ped`, if the ped is not sitting in a vehicle it will return -3.
-function Global.GetSeatPedIsUsing(ped)
-	return _in(0x57b78c17, ped, _ri)
-end
-
 --- An alias of [GET_CURRENT_PED_WEAPON](#_0xB0237302).
 -- Note, the client-side [GET_SELECTED_PED_WEAPON](#_0x0A6DB4965674D243) native returns the weapon selected via the HUD (weapon wheel). This data is not available to FXServer.
 -- @param ped The target ped.
@@ -1896,28 +1882,6 @@ function Global.IsPedHandcuffed(ped)
 	return _in(0x25865633, ped, _r)
 end
 
---- IS_PED_IN_ANY_VEHICLE
--- @param ped the ped id
--- @return Returns `true` if the specified `ped` is in any vehicle
-function Global.IsPedInAnyVehicle(ped)
-	return _in(0x3b0171ee, ped, _r)
-end
-
---- IS_PED_IN_VEHICLE
--- @param ped the ped id
--- @param vehicle the vehicle id
--- @return Returns `true` if the specified `ped` is in the specified `vehicle`
-function Global.IsPedInVehicle(ped, vehicle)
-	return _in(0x7da6bc83, ped, vehicle, _r)
-end
-
---- IS_PED_ON_MOUNT
--- @param ped the ped id
--- @return Returns `true` if the specified `ped` is on a mount.
-function Global.IsPedOnMount(ped)
-	return _in(0x43103006, ped, _r)
-end
-
 --- IS_PED_RAGDOLL
 -- @param ped The target ped.
 -- @return Whether or not the ped is ragdolling.
@@ -2188,7 +2152,7 @@ function Global.RemoveAllPedWeapons(ped, p1)
 end
 
 --- Removes the blip from your map.
--- **Note:** This function only works on the script that created the blip, if you wish to remove blips created by other scripts, see [`SET_THIS_SCRIPT_CAN_REMOVE_BLIPS_CREATED_BY_ANY_SCRIPT`](#\_0xB98236CAAECEF897).
+-- **Note:** This function only works on the script that created the blip, if you wish to remove blips created by other scripts, see [`SET_THIS_SCRIPT_CAN_REMOVE_BLIPS_CREATED_BY_ANY_SCRIPT`](#\_0x86A652570E5F25DD).
 -- @param blip Blip handle to remove.
 function Global.RemoveBlip(blip)
 	return _in(0xd8c3c1cd, _ii(blip) --[[ may be optional ]])
@@ -3046,9 +3010,9 @@ function Global.SetPedHairTint(ped, colorID, highlightColorID)
 end
 Global.SetPedHairColor = Global.SetPedHairTint
 
---- For more info and the list of faceIDs please refer to [this](https://gtaforums.com/topic/858970-all-gtao-face-ids-pedset-ped-head-blend-data-explained) topic. Note that the Skin and Shape IDs are shared. This native will use this same list for both Skin and Shape IDs.
+--- For more info please refer to [this](https://gtaforums.com/topic/858970-all-gtao-face-ids-pedset-ped-head-blend-data-explained) topic.
 -- **Other information:**
--- IDs start at zero and go Male Non-DLC, Female Non-DLC, Male DLC, and Female DLC.
+-- IDs start at zero and go Male Non-DLC, Female Non-DLC, Male DLC, and Female DLC.</br>
 -- This native function is often called prior to calling natives such as:
 -- *   [`SetPedHairColor`](#\_0xA23FE32C)
 -- *   [`SetPedHeadOverlayColor`](#\_0x78935A27)
