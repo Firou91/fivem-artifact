@@ -38,14 +38,6 @@ jobs:
           sudo apt-get install -y jq unzip xz-utils git-lfs
           git lfs install --local
 
-      - name: Configure LFS tracking
-        run: |
-          set -xeuo pipefail
-          cat > .gitattributes <<'EOF'
-          **/libnode*.so filter=lfs diff=lfs merge=lfs -text
-          **/libnode*.dll filter=lfs diff=lfs merge=lfs -text
-          EOF
-
       - name: Fetch latest artifact metadata
         id: meta
         run: |
@@ -124,6 +116,15 @@ jobs:
           else
             git checkout -B "$target_branch"
           fi
+
+      - name: Configure LFS tracking
+        if: steps.check.outputs.update_needed == 'true'
+        run: |
+          set -xeuo pipefail
+          cat > .gitattributes <<'EOF'
+          **/libnode*.so filter=lfs diff=lfs merge=lfs -text
+          **/libnode*.dll filter=lfs diff=lfs merge=lfs -text
+          EOF
 
       - name: Replace repository contents with artifact
         if: steps.check.outputs.update_needed == 'true'
