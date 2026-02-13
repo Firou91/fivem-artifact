@@ -16,10 +16,6 @@
             
             By default, the blip will show as a *regular* blip with the specified color/sprite if it is outside of the minimap view.
             
-            Example image:
-            ![minimap](https://i.imgur.com/qLbXWcQ.png)
-            ![big map](https://i.imgur.com/0j7O7Rh.png)
-            
             (Native name is *likely* to actually be ADD_BLIP_FOR_AREA, but due to the usual reasons this can't be confirmed)
             </summary>
             <param name="x">
@@ -48,10 +44,6 @@
             It is recommended to use [SET_BLIP_ROTATION](#\_0xF87683CDF73C3F6E) and [SET_BLIP_COLOUR](#\_0x03D7FB09E75D6B7E) to make the blip not rotate along with the camera.
             
             By default, the blip will show as a *regular* blip with the specified color/sprite if it is outside of the minimap view.
-            
-            Example image:
-            ![minimap](https://i.imgur.com/qLbXWcQ.png)
-            ![big map](https://i.imgur.com/0j7O7Rh.png)
             
             (Native name is *likely* to actually be ADD_BLIP_FOR_AREA, but due to the usual reasons this can't be confirmed)
             </summary>
@@ -97,9 +89,9 @@
             Can be used for objects, vehicles and peds.
             
             Example of enemy:
-            ![enemy](https://i.imgur.com/fl78svv.png)
+            ![enemy](https://i.imgur.com/LIizV6S.png)
             Example of friend:
-            ![friend](https://i.imgur.com/Q16ho5d.png)
+            ![friend](https://i.imgur.com/XrCuvZP.png)
             </summary>
             <param name="entity">
             The entity handle to create the blip.
@@ -113,7 +105,7 @@
             Create a blip with a radius for the specified coordinates (it doesnt create the blip sprite, so you need to use [AddBlipCoords](#\_0xC6F43D0E))
             
             Example image:
-            ![example](https://i.imgur.com/9hQl3DB.png)
+            ![example](https://i.imgur.com/fDCmHVD.png)
             </summary>
             <param name="posX">
             The x position of the blip (you can also send a vector3 instead of the bulk coordinates)
@@ -5119,10 +5111,6 @@
             
             By default, the blip will show as a *regular* blip with the specified color/sprite if it is outside of the minimap view.
             
-            Example image:
-            ![minimap](https://i.imgur.com/qLbXWcQ.png)
-            ![big map](https://i.imgur.com/0j7O7Rh.png)
-            
             (Native name is *likely* to actually be ADD_BLIP_FOR_AREA, but due to the usual reasons this can't be confirmed)
             </summary>
         </member>
@@ -5137,9 +5125,9 @@
             Can be used for objects, vehicles and peds.
             
             Example of enemy:
-            ![enemy](https://i.imgur.com/fl78svv.png)
+            ![enemy](https://i.imgur.com/LIizV6S.png)
             Example of friend:
-            ![friend](https://i.imgur.com/Q16ho5d.png)
+            ![friend](https://i.imgur.com/XrCuvZP.png)
             </summary>
         </member>
         <member name="F:CitizenFX.Server.Native.Hash.ADD_BLIP_FOR_RADIUS">
@@ -5147,7 +5135,7 @@
             Create a blip with a radius for the specified coordinates (it doesnt create the blip sprite, so you need to use [AddBlipCoords](#\_0xC6F43D0E))
             
             Example image:
-            ![example](https://i.imgur.com/9hQl3DB.png)
+            ![example](https://i.imgur.com/fDCmHVD.png)
             </summary>
         </member>
         <member name="F:CitizenFX.Server.Native.Hash.ADD_CONVAR_CHANGE_LISTENER">

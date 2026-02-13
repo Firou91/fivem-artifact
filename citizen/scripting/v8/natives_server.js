@@ -47,9 +47,6 @@ const _ENV = null;
  * Adds a rectangular blip for the specified coordinates/area.
  * It is recommended to use [SET_BLIP_ROTATION](#\_0xF87683CDF73C3F6E) and [SET_BLIP_COLOUR](#\_0x03D7FB09E75D6B7E) to make the blip not rotate along with the camera.
  * By default, the blip will show as a *regular* blip with the specified color/sprite if it is outside of the minimap view.
- * Example image:
- * ![minimap](https://i.imgur.com/qLbXWcQ.png)
- * ![big map](https://i.imgur.com/0j7O7Rh.png)
  * (Native name is *likely* to actually be ADD_BLIP_FOR_AREA, but due to the usual reasons this can't be confirmed)
  * @param x The X coordinate of the center of the blip.
  * @param y The Y coordinate of the center of the blip.
@@ -78,9 +75,9 @@ global.AddBlipForCoord = function (x, y, z) {
  * Create a blip that by default is red (enemy), you can use [SET_BLIP_AS_FRIENDLY](#\_0xC6F43D0E) to make it blue (friend).\
  * Can be used for objects, vehicles and peds.
  * Example of enemy:
- * ![enemy](https://i.imgur.com/fl78svv.png)
+ * ![enemy](https://i.imgur.com/LIizV6S.png)
  * Example of friend:
- * ![friend](https://i.imgur.com/Q16ho5d.png)
+ * ![friend](https://i.imgur.com/XrCuvZP.png)
  * @param entity The entity handle to create the blip.
  * @return A blip handle.
  */
@@ -91,7 +88,7 @@ global.AddBlipForEntity = function (entity) {
 /**
  * Create a blip with a radius for the specified coordinates (it doesnt create the blip sprite, so you need to use [AddBlipCoords](#\_0xC6F43D0E))
  * Example image:
- * ![example](https://i.imgur.com/9hQl3DB.png)
+ * ![example](https://i.imgur.com/fDCmHVD.png)
  * @param posX The x position of the blip (you can also send a vector3 instead of the bulk coordinates)
  * @param posY The y position of the blip (you can also send a vector3 instead of the bulk coordinates)
  * @param posZ The z position of the blip (you can also send a vector3 instead of the bulk coordinates)
