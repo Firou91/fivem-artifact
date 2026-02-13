@@ -40,9 +40,6 @@ _ENV = nil
 --- Adds a rectangular blip for the specified coordinates/area.
 -- It is recommended to use [SET_BLIP_ROTATION](#\_0xF87683CDF73C3F6E) and [SET_BLIP_COLOUR](#\_0x03D7FB09E75D6B7E) to make the blip not rotate along with the camera.
 -- By default, the blip will show as a *regular* blip with the specified color/sprite if it is outside of the minimap view.
--- Example image:
--- ![minimap](https://i.imgur.com/qLbXWcQ.png)
--- ![big map](https://i.imgur.com/0j7O7Rh.png)
 -- (Native name is *likely* to actually be ADD_BLIP_FOR_AREA, but due to the usual reasons this can't be confirmed)
 -- @param x The X coordinate of the center of the blip.
 -- @param y The Y coordinate of the center of the blip.
@@ -67,9 +64,9 @@ end
 --- Create a blip that by default is red (enemy), you can use [SET_BLIP_AS_FRIENDLY](#\_0xC6F43D0E) to make it blue (friend).\
 -- Can be used for objects, vehicles and peds.
 -- Example of enemy:
--- ![enemy](https://i.imgur.com/fl78svv.png)
+-- ![enemy](https://i.imgur.com/LIizV6S.png)
 -- Example of friend:
--- ![friend](https://i.imgur.com/Q16ho5d.png)
+-- ![friend](https://i.imgur.com/XrCuvZP.png)
 -- @param entity The entity handle to create the blip.
 -- @return A blip handle.
 function Global.AddBlipForEntity(entity)
@@ -78,7 +75,7 @@ end
 
 --- Create a blip with a radius for the specified coordinates (it doesnt create the blip sprite, so you need to use [AddBlipCoords](#\_0xC6F43D0E))
 -- Example image:
--- ![example](https://i.imgur.com/9hQl3DB.png)
+-- ![example](https://i.imgur.com/fDCmHVD.png)
 -- @param posX The x position of the blip (you can also send a vector3 instead of the bulk coordinates)
 -- @param posY The y position of the blip (you can also send a vector3 instead of the bulk coordinates)
 -- @param posZ The z position of the blip (you can also send a vector3 instead of the bulk coordinates)
@@ -732,6 +729,7 @@ end
 -- *   3323
 -- *   3407
 -- *   3570
+-- *   3751
 -- *   RedM
 -- *   1311
 -- *   1355
@@ -935,6 +933,13 @@ end
 -- @return The last ped in the specified seat of the passed vehicle. Returns 0 if the specified seat was never occupied or the last ped does not exist anymore.
 function Global.GetLastPedInVehicleSeat(vehicle, seatIndex)
 	return _in(0xf7c6792d, vehicle, seatIndex, _ri)
+end
+
+--- GET_MOUNT
+-- @param ped the ped id
+-- @return Returns the entity the `ped` is currently on, or `0` if they're not on a mount.
+function Global.GetMount(ped)
+	return _in(0xdd31ec4e, ped, _ri)
 end
 
 --- Gets the specific entity type (as an integer), which can be one of the following defined down below:
@@ -1426,6 +1431,13 @@ function Global.GetResourceState(resourceName)
 	return _in(0x4039b485, _ts(resourceName), _s)
 end
 
+--- GET_SEAT_PED_IS_USING
+-- @param ped the ped id
+-- @return Returns the seat index for specified `ped`, if the ped is not sitting in a vehicle it will return -3.
+function Global.GetSeatPedIsUsing(ped)
+	return _in(0x57b78c17, ped, _ri)
+end
+
 --- An alias of [GET_CURRENT_PED_WEAPON](#\_0xB0237302).
 -- Note, the client-side [GET_SELECTED_PED_WEAPON](#\_0x0A6DB4965674D243) native returns the weapon selected via the HUD (weapon wheel). This data is not available to FXServer.
 -- @param ped The target ped.
@@ -1865,6 +1877,28 @@ function Global.IsPedHandcuffed(ped)
 	return _in(0x25865633, ped, _r)
 end
 
+--- IS_PED_IN_ANY_VEHICLE
+-- @param ped the ped id
+-- @return Returns `true` if the specified `ped` is in any vehicle
+function Global.IsPedInAnyVehicle(ped)
+	return _in(0x3b0171ee, ped, _r)
+end
+
+--- IS_PED_IN_VEHICLE
+-- @param ped the ped id
+-- @param vehicle the vehicle id
+-- @return Returns `true` if the specified `ped` is in the specified `vehicle`
+function Global.IsPedInVehicle(ped, vehicle)
+	return _in(0x7da6bc83, ped, vehicle, _r)
+end
+
+--- IS_PED_ON_MOUNT
+-- @param ped the ped id
+-- @return Returns `true` if the specified `ped` is on a mount.
+function Global.IsPedOnMount(ped)
+	return _in(0x43103006, ped, _r)
+end
+
 --- IS_PED_RAGDOLL
 -- @param ped The target ped.
 -- @return Whether or not the ped is ragdolling.
@@ -2135,7 +2169,7 @@ function Global.RemoveAllPedWeapons(ped, p1)
 end
 
 --- Removes the blip from your map.
--- **Note:** This function only works on the script that created the blip, if you wish to remove blips created by other scripts, see [`SET_THIS_SCRIPT_CAN_REMOVE_BLIPS_CREATED_BY_ANY_SCRIPT`](#\_0x86A652570E5F25DD).
+-- **Note:** This function only works on the script that created the blip, if you wish to remove blips created by other scripts, see [`SET_THIS_SCRIPT_CAN_REMOVE_BLIPS_CREATED_BY_ANY_SCRIPT`](#\_0xB98236CAAECEF897).
 -- @param blip Blip handle to remove.
 function Global.RemoveBlip(blip)
 	return _in(0xd8c3c1cd, _ii(blip) --[[ may be optional ]])
@@ -2993,9 +3027,9 @@ function Global.SetPedHairTint(ped, colorID, highlightColorID)
 end
 Global.SetPedHairColor = Global.SetPedHairTint
 
---- For more info please refer to [this](https://gtaforums.com/topic/858970-all-gtao-face-ids-pedset-ped-head-blend-data-explained) topic.
+--- For more info and the list of faceIDs please refer to [this](https://gtaforums.com/topic/858970-all-gtao-face-ids-pedset-ped-head-blend-data-explained) topic. Note that the Skin and Shape IDs are shared. This native will use this same list for both Skin and Shape IDs.
 -- **Other information:**
--- IDs start at zero and go Male Non-DLC, Female Non-DLC, Male DLC, and Female DLC.</br>
+-- IDs start at zero and go Male Non-DLC, Female Non-DLC, Male DLC, and Female DLC.
 -- This native function is often called prior to calling natives such as:
 -- *   [`SetPedHairColor`](#\_0xA23FE32C)
 -- *   [`SetPedHeadOverlayColor`](#\_0x78935A27)
