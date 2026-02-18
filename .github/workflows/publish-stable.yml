@@ -136,7 +136,7 @@ jobs:
           shopt -s dotglob
           for entry in *; do
             case "$entry" in
-              .git|.github|.gitattributes)
+              .git|.github|.gitattributes|.gitignore)
                 continue
                 ;;
             esac
@@ -162,6 +162,7 @@ jobs:
           echo "${{ steps.meta.outputs.recommended_version }}" > artifact-version.txt
           echo "Removing .gitignore files from extracted content..."
           find . -type f -name ".gitignore" \
+            ! -path "./.gitignore" \
             ! -path "./.git/*" ! -path "./.github/*" \
             ! -path "./.git" ! -path "./.github" \
             -print -delete

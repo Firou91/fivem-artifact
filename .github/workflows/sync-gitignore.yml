@@ -1,0 +1,52 @@
+name: Sync .gitignore to artifact branches
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .gitignore
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    name: Sync .gitignore to ${{ matrix.branch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        branch:
+          - stable-windows
+          - stable-linux
+          - latest-windows
+          - latest-linux
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync root .gitignore from main
+        run: |
+          set -xeuo pipefail
+          target_branch="${{ matrix.branch }}"
+
+          git fetch origin main "$target_branch"
+          git checkout -B "$target_branch" "origin/$target_branch"
+
+          git show origin/main:.gitignore > .gitignore
+
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add .gitignore
+
+          if git diff --cached --quiet --ignore-submodules; then
+            echo "No .gitignore changes for $target_branch."
+            exit 0
+          fi
+
+          git commit -m "chore: sync .gitignore from main"
+          git push origin "$target_branch"
