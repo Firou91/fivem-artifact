@@ -18,11 +18,13 @@ Each branch contains a ready-to-use FiveM server artifact for a specific platfor
 ### 1. Clone the branch you need
 
 ```bash
-# Example: stable Windows artifact
-git clone -b stable-windows git@github.com:Firou91/fivem-artifact.git
+# Example: stable or latest Windows artifact
+git clone -b stable-windows https://github.com/Firou91/fivem-artifact.git
+git clone -b latest-windows https://github.com/Firou91/fivem-artifact.git
 
-# Example: latest Linux artifact
-git clone -b latest-linux git@github.com:Firou91/fivem-artifact.git
+# Example: stable or latest Linux artifact
+git clone -b stable-linux https://github.com/Firou91/fivem-artifact.git
+git clone -b latest-linux https://github.com/Firou91/fivem-artifact.git
 ```
 
 ### 2. Update when a new version is available
@@ -34,6 +36,7 @@ git pull
 ```
 
 If you manage your server from an IDE or editor, pull from there when you see that the remote branch has been updated.
+If your IDE or editor supports it, you can schedule git fetch operations at regular intervals to automatically check for updates.
 
 ## How it works
 
