@@ -1,1 +1,3 @@
-citizen/system_resources/
+server-monitor-token.key
+server-tls.crt
+server-tls.key
