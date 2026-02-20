@@ -119,6 +119,13 @@ jobs:
             git checkout -B "$target_branch"
           fi
 
+      - name: Sync root .gitignore from main
+        if: steps.check.outputs.update_needed == 'true'
+        run: |
+          set -xeuo pipefail
+          git fetch origin main
+          git show origin/main:.gitignore > .gitignore
+
       - name: Configure LFS tracking
         if: steps.check.outputs.update_needed == 'true'
         run: |
@@ -171,6 +178,17 @@ jobs:
           echo "Files/directories at repo root (excluding .git/.github): $file_count"
           if [ "$file_count" -eq 0 ]; then
             echo "No files extracted. Failing build."
+            exit 1
+          fi
+
+      - name: Verify root .gitignore matches main
+        if: steps.check.outputs.update_needed == 'true'
+        run: |
+          set -xeuo pipefail
+          local_hash=$(git hash-object .gitignore)
+          main_hash=$(git show origin/main:.gitignore | git hash-object --stdin)
+          if [ "$local_hash" != "$main_hash" ]; then
+            echo "Root .gitignore diverged from origin/main."
             exit 1
           fi
 
